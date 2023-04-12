@@ -14,7 +14,7 @@ export default function SendEvaluation() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
+    <div className="flex flex-col items-center justify-center min-h-screen space-y-4 ">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label
@@ -46,7 +46,7 @@ export default function SendEvaluation() {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-green-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           disabled={loading}
         >
           {loading ? 'Loading...' : 'Send'}
