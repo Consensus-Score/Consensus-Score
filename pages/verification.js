@@ -110,9 +110,10 @@ export default function Verification() {
             {verified ? (
               <div className="flex space-x-14 place-content-center">
                 {Array.from({ length: score }, (_, i) => (
-                  <span key={i} className="w-80 h-80 bg-smallStar bg-cover">
-                    ⭐
-                  </span>
+                  <span
+                    key={i}
+                    className="w-80 h-80 bg-smallStar bg-cover"
+                  ></span>
                 ))}
               </div>
             ) : (
