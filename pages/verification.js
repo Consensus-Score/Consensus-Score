@@ -8,6 +8,7 @@ export default function Verification() {
   const [verified, setVerified] = useState(false);
   // proof
   const [proof, setProof] = useState(null);
+  const [score, setScore] = useState(null);
 
   async function handleVerification() {
     console.log('groth16 : ', groth16);
@@ -15,22 +16,24 @@ export default function Verification() {
       return;
     }
     console.log('groth16 : ', groth16);
-    const { proof: _proof, publicSignals: _publicSignals } =
-      await groth16.fullProve(
-        { a: 380, b: 5 },
-        '/circuits/evaluation.wasm',
-        '/circuits/circuit_final.zkey'
-      );
+    const { proof, publicSignals } = await groth16.fullProve(
+      { totalScore: 100, totalEvaluater: 5 },
+      '/circuits/circuit.wasm',
+      '/circuits/circuit_final.zkey'
+    );
 
-    setProof(JSON.stringify(_proof, null, 1));
+    setProof(JSON.stringify(proof, null, 1));
 
     const response = await fetch('/circuits/verification_key.json');
     const vKey = await response.json();
 
-    const res = await groth16.verify(vKey, _publicSignals, _proof);
+    const res = await groth16.verify(vKey, publicSignals, proof);
 
     setVerified(res);
     console.log('検証完了！', proof);
+    console.log('publicSignals : ', publicSignals);
+    setScore(publicSignals[1]);
+    console.log(score);
   }
 
   return (
@@ -57,7 +60,7 @@ export default function Verification() {
       </button>
       {verified ? (
         <div className="flex space-x-2">
-          {[1, 2, 3, 4, 5].map((i) => (
+          {Array.from({ length: score }, (_, i) => (
             <span key={i} className="text-3xl">
               ⭐
             </span>
