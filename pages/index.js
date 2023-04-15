@@ -63,14 +63,21 @@ export default function Home() {
     setConnecting(false);
   };
   return (
-    <div className="flex justify-center items-center h-screen">
-      <button
-        onClick={connectWallet}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        disabled={connecting}
-      >
-        {connecting ? 'Connecting...' : 'Connect Wallet'}
-      </button>
+    <div className="bg-indexBG bg-cover h-screen w-screen flex flex-col place-content-center text-lightBlack font-aktivGrotesk">
+      <div className='ml-36'>
+        <h1 className="text-7xl">Consensus Score</h1>
+        <p className="text-2xl mt-83px mb-97px">Your personalized evaluation score.<br></br>
+          And a score that shows how much you are trusted.</p>
+        <div>
+          <button
+            onClick={connectWallet}
+            className="rounded-full text-2xl px-10 py-2.5 bg-lightBlack hover:bg-blue-700 text-white"
+            disabled={connecting}
+          >
+            {connecting ? 'Connecting...' : 'Connect Wallet'}
+          </button>
+        </div>
+      </div>
     </div>
   );
-}
+};
