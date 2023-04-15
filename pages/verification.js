@@ -17,8 +17,14 @@ export default function Verification() {
     }
     console.log('groth16 : ', groth16);
     const { proof, publicSignals } = await groth16.fullProve(
-      { totalScore: 100, totalEvaluater: 5 },
-      '/circuits/circuit.wasm',
+      {
+        totalScore: '4642984916065208514',
+        totalEvaluater: '6839710902914985989',
+        encryptionKeyN: '3088115351',
+        decriptionKeyLambda: '1544000052',
+        decriptionKeyMu: '2629330252',
+      },
+      '/circuits/evaluation.wasm',
       '/circuits/circuit_final.zkey'
     );
 
@@ -32,7 +38,7 @@ export default function Verification() {
     setVerified(res);
     console.log('検証完了！', proof);
     console.log('publicSignals : ', publicSignals);
-    setScore(publicSignals[1]);
+    setScore(publicSignals[0]);
     console.log(score);
   }
 
@@ -45,7 +51,7 @@ export default function Verification() {
         <Link href="/main">
           <button className="w-12 h-12 absolute top-8 left-8">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <g fill="none" fill-rule="evenodd">
+              <g fill="none" fillRule="evenodd">
                 <path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z" />
                 <path
                   className="fill-lightBlack"
@@ -101,13 +107,17 @@ export default function Verification() {
             Verify
           </button>
           <div className="absolute bottom-10%">
-            {verified && (
+            {verified ? (
               <div className="flex space-x-14 place-content-center">
                 {Array.from({ length: score }, (_, i) => (
                   <span key={i} className="w-80 h-80 bg-smallStar bg-cover">
                     ⭐
                   </span>
                 ))}
+              </div>
+            ) : (
+              <div>
+                <p>検証されていません</p>
               </div>
             )}
           </div>
