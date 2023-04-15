@@ -1,14 +1,37 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
+const { groth16 } = require('snarkjs');
+
 export default function Verification() {
   const [walletAddress, setWalletAddress] = useState('');
   const [verified, setVerified] = useState(false);
+  // proof
+  const [proof, setProof] = useState(null);
 
-  const handleVerification = async () => {
-    // TODO: ここでウォレットアドレスの確認処理を実装
-    setVerified(true);
-  };
+  async function handleVerification() {
+    console.log('groth16 : ', groth16);
+    if (typeof groth16 === 'undefined') {
+      return;
+    }
+    console.log('groth16 : ', groth16);
+    const { proof: _proof, publicSignals: _publicSignals } =
+      await groth16.fullProve(
+        { a: 380, b: 5 },
+        '/circuits/evaluation.wasm',
+        '/circuits/circuit_final.zkey'
+      );
+
+    setProof(JSON.stringify(_proof, null, 1));
+
+    const response = await fetch('/circuits/verification_key.json');
+    const vKey = await response.json();
+
+    const res = await groth16.verify(vKey, _publicSignals, _proof);
+
+    setVerified(res);
+    console.log('検証完了！', proof);
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
@@ -32,13 +55,17 @@ export default function Verification() {
       >
         Verify
       </button>
-      {verified && (
+      {verified ? (
         <div className="flex space-x-2">
           {[1, 2, 3, 4, 5].map((i) => (
             <span key={i} className="text-3xl">
               ⭐
             </span>
           ))}
+        </div>
+      ) : (
+        <div className="flex space-x-2">
+          <p>検証できていません</p>
         </div>
       )}
       <Link href="/main">
