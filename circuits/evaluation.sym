@@ -1,0 +1,17 @@
+1,1,1,main.rating
+2,2,1,main.totalScore
+3,3,1,main.totalEvaluater
+4,4,1,main.encryptionKeyN
+5,-1,1,main.decriptionKeyLambda
+6,-1,1,main.decriptionKeyMu
+7,5,1,main.averageScore
+8,6,1,main.rem
+9,7,1,main.plainTotScore
+10,8,1,main.plainTotEvaluater
+11,-1,0,main.computeRating.rating
+12,-1,0,main.computeRating.averageScore
+13,-1,0,main.computeRating.isLevel1
+14,-1,0,main.computeRating.isLevel2
+15,-1,0,main.computeRating.isLevel3
+16,-1,0,main.computeRating.isLevel4
+17,-1,0,main.computeRating.isLevel5
