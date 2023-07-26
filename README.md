@@ -2,26 +2,32 @@
 
 ### デモ
 
-ルートディレクトリで `npm run dev`
-[動画](https://www.youtube.com/watch?v=eYzm8xuT9zE)
+下記コマンドで動かすことができます。
+`npm run dev`
+
+[デモ動画はこちらをご覧ください](https://www.youtube.com/watch?v=eYzm8xuT9zE)
 
 ### プロジェクトの概要
 
 1. ユーザーがスコアを入力し send -> 準同型暗号により暗号化されたスコアがオンチェーン上にのる
-   (現在はオンチェーン実装できておらず、verification.js にベタ書き状態)
+
+(現在はオンチェーン実装できておらず、verification.js にベタ書き状態)
+
 2. zkSnark で検証しスコアを表出
-   回路の実行に必要な「検証鍵」「証明鍵」「circom をコンパイルした wasm ファイル」をそれぞれ/public/circuits/配下に配置している。
+
+回路の実行に必要な「検証鍵」「証明鍵」「circom をコンパイルした wasm ファイル」をそれぞれ/public/circuits/配下に配置している。
 
 ### どのように作ったか、なんの技術を使った
 
-circom
-snarkjs
-nextjs
+- circom
+- snarkjs
+- nextjs
 
 ### 技術的に難しかったこと、アピールポイント
 
 ZK 部分は snarkjs ライブラリを使用したが Nextjs 上で動かすことに苦労した
-やったこと
+
+以下やったこと
 
 - node_modules の中にある`snarkjs.min.js` を public フォルダ配下におく
 - ./components/layout.js を作成する
